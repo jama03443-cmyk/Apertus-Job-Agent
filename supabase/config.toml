@@ -1,0 +1,4 @@
+project_id = "mshxinszhwmluqopnbck"
+
+[functions.optimize-cv]
+verify_jwt = true

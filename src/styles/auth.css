@@ -1,0 +1,21 @@
+.auth { min-height: 100vh; display: grid; place-items: center; padding: 24px; background: #eef2fb; }
+.authBox { width: min(100%, 430px); padding: 38px; background: #fff; border: 1px solid #dfe6f4; border-radius: 20px; box-shadow: 0 22px 60px #31436e1c; }
+.authBrand { margin: 0 0 10px; color: #3154c7; font-size: .78rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.authBox h1 { margin: 0; color: #152033; font-size: 2rem; letter-spacing: -.05em; }
+.authIntro { margin: 10px 0 25px; color: #647087; line-height: 1.5; }
+.authBox form { display: grid; gap: 8px; }
+.authBox label { margin-top: 8px; color: #34425c; font-size: .9rem; font-weight: 700; }
+.authBox input { width: 100%; padding: 13px 14px; border: 1px solid #d7dfed; border-radius: 9px; color: #152033; outline: none; }
+.authBox input:focus { border-color: #d52b1e; box-shadow: 0 0 0 3px #d52b1e1c; }
+.authBox form button, .googleBtn { width: 100%; margin-top: 14px; padding: 13px 16px; border: 0; border-radius: 9px; font-weight: 800; cursor: pointer; }
+.authBox form button { color: #fff; background: #d52b1e; }
+.googleBtn { margin-top: 0; color: #23304a; background: #f6f8fc; border: 1px solid #dce4f1; }
+button:disabled { cursor: wait; opacity: .65; }
+.divider { display: flex; align-items: center; gap: 12px; margin: 22px 0 12px; color: #8a96a9; font-size: .85rem; }
+.divider::before, .divider::after { content: ''; height: 1px; flex: 1; background: #e4e9f2; }
+.switch, .message, .backLink { text-align: center; font-size: .9rem; }
+.switch { margin: 24px 0 10px; color: #647087; }
+.switch button { padding: 0; border: 0; color: #b42318; background: transparent; font-weight: 800; cursor: pointer; }
+.message { margin: 15px 0 0; color: #b42318; line-height: 1.45; }
+.backLink { display: block; margin-top: 22px; color: #647087; }
+@media (max-width: 460px) { .authBox { padding: 28px 22px; } }
