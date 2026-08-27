@@ -2,3 +2,6 @@ project_id = "mshxinszhwmluqopnbck"
 
 [functions.optimize-cv]
 verify_jwt = true
+
+[functions.find-jobs]
+verify_jwt = true

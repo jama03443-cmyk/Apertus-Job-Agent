@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
+import RevealOnScroll from '../components/RevealOnScroll';
 import '../styles/landing.css';
 
 type UserSession = {
@@ -60,7 +61,7 @@ export default function Landing() {
   return (
     <div className="landing">
       <nav className="navbar">
-        <Link to="/" className="brand"><span className="brandMark">*</span> CV Optimizer AI</Link>
+        <Link to="/" className="brand"><img className="swissFlag" src="/flag.webp" alt="Swiss flag" /><span>Apertus Job Agent</span></Link>
 
         <div className="navLinks">
           <a href="#features">Features</a>
@@ -72,7 +73,6 @@ export default function Landing() {
           <div className="accountMenu">
             <button className="accountButton" onClick={() => setAccountMenuOpen(!accountMenuOpen)} aria-expanded={accountMenuOpen}>
               <span className="accountInitial">{accountInitial}</span>
-              <span className="accountChevron">v</span>
             </button>
             {accountMenuOpen && (
               <div className="accountDropdown">
@@ -100,58 +100,63 @@ export default function Landing() {
           <div className="trustRow"><span>+ Any language</span><span>+ Private processing</span><span>+ Results in seconds</span></div>
         </section>
 
-        <section className="features" id="features" aria-label="Features">
-          {features.map(([icon, title, text]) => (
-            <article className="card" key={title}>
-              <div className={`cardIcon ${icon}`}>{icon === 'check' ? '+' : icon === 'arrow' ? '>' : '*'}</div>
-              <h2>{title}</h2>
-              <p>{text}</p>
-            </article>
-          ))}
-        </section>
-
-        <section className="howItWorks" id="how-it-works">
-          <p className="eyebrow">Simple by design</p>
-          <h2>From draft to ready-to-send.</h2>
-          <div className="steps">
-            {steps.map(([number, title, text]) => (
-              <div className="step" key={number}>
-                <span>{number}</span>
-                <div><h3>{title}</h3><p>{text}</p></div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="pricing" id="pricing">
-          <div className="pricingHeading">
-            <p className="eyebrow">Choose your pace</p>
-            <h2>Simple plans for your next move.</h2>
-            <p>Start free and upgrade when your job search needs more momentum.</p>
-          </div>
-          <div className="pricingGrid">
-            {plans.map((plan) => (
-              <article className={`planCard ${plan.featured ? 'featuredPlan' : ''}`} key={plan.name}>
-                {plan.featured && <span className="popularBadge">Most popular</span>}
-                <span className="planLabel">{plan.name}</span>
-                <h3>{plan.price}</h3>
-                <p className="planDescription">{plan.text}</p>
-                <ul>{plan.items.map((item) => <li key={item}>+ {item}</li>)}</ul>
-                <Link to={`/auth?plan=${plan.name.toLowerCase().replace(' ', '-')}`} className={`planButton ${plan.featured ? '' : 'secondaryPlanButton'}`}>
-                  Choose {plan.name}
-                </Link>
+        <RevealOnScroll>
+          <section className="features" id="features" aria-label="Features">
+            {features.map(([icon, title, text]) => (
+              <article className="card" key={title}>
+                <div className={`cardIcon ${icon}`}>{icon === 'check' ? '+' : icon === 'arrow' ? '>' : '*'}</div>
+                <h2>{title}</h2>
+                <p>{text}</p>
               </article>
             ))}
-          </div>
-        </section>
+          </section>
+        </RevealOnScroll>
+
+        <RevealOnScroll>
+          <section className="howItWorks" id="how-it-works">
+            <p className="eyebrow">Simple by design</p>
+            <h2>From draft to ready-to-send.</h2>
+            <div className="steps">
+              {steps.map(([number, title, text]) => (
+                <div className="step" key={number}>
+                  <span>{number}</span>
+                  <div><h3>{title}</h3><p>{text}</p></div>
+                </div>
+              ))}
+            </div>
+          </section>
+        </RevealOnScroll>
+
+        <RevealOnScroll>
+          <section className="pricing" id="pricing">
+            <div className="pricingHeading">
+              <p className="eyebrow">Choose your pace</p>
+              <h2>Simple plans for your next move.</h2>
+              <p>Start free and upgrade when your job search needs more momentum.</p>
+            </div>
+            <div className="pricingGrid">
+              {plans.map((plan) => (
+                <article className={`planCard ${plan.featured ? 'featuredPlan' : ''}`} key={plan.name}>
+                  {plan.featured && <span className="popularBadge">Most popular</span>}
+                  <span className="planLabel">{plan.name}</span>
+                  <h3>{plan.price}</h3>
+                  <p className="planDescription">{plan.text}</p>
+                  <ul>{plan.items.map((item) => <li key={item}>+ {item}</li>)}</ul>
+                  <Link to={`/auth?redirect=%2Fsubscription&plan=${plan.name.toLowerCase().replace(' ', '-')}`} className={`planButton ${plan.featured ? '' : 'secondaryPlanButton'}`}>
+                    Choose {plan.name}
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </section>
+        </RevealOnScroll>
       </main>
 
       <footer>
         <div className="footerMain">
-          <div><Link to="/" className="brand"><span className="brandMark">*</span> CV Optimizer AI</Link><p>Make your next application your strongest one.</p></div>
-          <div className="footerLinks"><a href="#features">Features</a><a href="#how-it-works">How it works</a><a href="#pricing">Pricing</a><Link to={session ? '/optimize' : '/auth'}>{session ? 'Dashboard' : 'Get started'}</Link></div>
+          <div><Link to="/" className="brand"><img className="swissFlag" src="/flag.webp" alt="Swiss flag" /><span>Apertus Job Agent</span></Link><p>Make your next application your strongest one.</p></div>
         </div>
-        <div className="footerBottom"><span>Copyright 2026 CV Optimizer AI</span><span>Built with Apertus AI</span></div>
+        <div className="footerBottom"><span>Copyright 2026 Apertus Job Agent</span><span>Built with Apertus AI</span></div>
       </footer>
     </div>
   );

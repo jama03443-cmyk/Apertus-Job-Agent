@@ -6,15 +6,13 @@ a { color: inherit; text-decoration: none; }
 .landing { min-height: 100vh; display: flex; flex-direction: column; overflow: hidden; background: #f8faff; }
 .navbar { position: relative; z-index: 2; width: min(1160px, calc(100% - 48px)); margin: 0 auto; padding: 26px 0; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .brand { display: inline-flex; align-items: center; gap: 9px; font-size: 1.08rem; font-weight: 850; letter-spacing: -.04em; white-space: nowrap; }
-.brandMark { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 9px; color: #fff; background: linear-gradient(135deg, #d52b1e, #b42318); font-size: .95rem; box-shadow: 0 7px 18px #d52b1e4a; }
+.swissFlag { width: 29px; height: 19px; border-radius: 5px; object-fit: cover; object-position: center; box-shadow: 0 5px 12px #d52b1e2b; }
 .navLinks { display: flex; gap: 30px; margin-left: auto; margin-right: 16px; color: #66738b; font-size: .9rem; font-weight: 650; }
-.navLinks a:hover, .footerLinks a:hover { color: #4d4bd3; }
-.navActions { display: flex; align-items: center; }
-.loginBtn, .dashboardBtn, .startBtn, .secondaryBtn { border-radius: 11px; padding: 11px 18px; font-weight: 750; transition: transform .2s ease, box-shadow .2s ease, background .2s ease; }
+.navLinks a:hover { color: #4d4bd3; }
+.loginBtn, .startBtn, .secondaryBtn { border-radius: 11px; padding: 11px 18px; font-weight: 750; transition: transform .2s ease, box-shadow .2s ease, background .2s ease; }
 .loginBtn { color: #b42318; border: 1px solid #f2d5d2; background: #fff; }
-.dashboardBtn { color: #fff; background: #d52b1e; box-shadow: 0 9px 20px #d52b1e33; }
-.dashboardBtn span, .startBtn span { margin-left: 5px; font-size: 1.1em; }
-.loginBtn:hover, .dashboardBtn:hover, .startBtn:hover, .secondaryBtn:hover { transform: translateY(-2px); }
+.startBtn span { margin-left: 5px; font-size: 1.1em; }
+.loginBtn:hover, .startBtn:hover, .secondaryBtn:hover { transform: translateY(-2px); }
 .hero { position: relative; width: min(960px, calc(100% - 48px)); margin: 0 auto; padding: 100px 0 90px; text-align: center; }
 .heroGlow { position: absolute; z-index: 0; top: 30px; left: 50%; width: 600px; height: 320px; transform: translateX(-50%); border-radius: 50%; background: #a6a2ff38; filter: blur(70px); pointer-events: none; }
 .hero > *:not(.heroGlow) { position: relative; z-index: 1; }
@@ -62,16 +60,15 @@ a { color: inherit; text-decoration: none; }
 footer { padding: 35px max(24px, calc((100% - 1160px) / 2)); border-top: 1px solid #e3e8f2; background: #fff; }
 .footerMain { display: flex; justify-content: space-between; gap: 30px; padding-bottom: 32px; }
 .footerMain p { margin: 13px 0 0; font-size: .9rem; }
-.footerLinks { display: flex; align-items: center; gap: 24px; color: #66738b; font-size: .88rem; font-weight: 650; }
 .footerBottom { display: flex; justify-content: space-between; gap: 20px; padding-top: 20px; border-top: 1px solid #edf0f6; font-size: .8rem; }
-@media (max-width: 760px) { .navbar { width: min(100% - 32px, 560px); } .navLinks { display: none; } .hero { padding: 75px 0 70px; } .features, .steps, .pricingGrid { grid-template-columns: 1fr; } .features { width: min(100% - 32px, 560px); padding-bottom: 70px; } .howItWorks, .pricing { width: min(100% - 32px, 560px); padding-bottom: 75px; } .footerMain { flex-direction: column; } .footerLinks { flex-wrap: wrap; } }
-@media (max-width: 480px) { .navbar { padding: 20px 0; } .brand { font-size: .95rem; } .brandMark { width: 25px; height: 25px; } .heroActions { flex-direction: column; } .startBtn, .secondaryBtn { width: 100%; } .trustRow { gap: 10px 16px; } .footerBottom { flex-direction: column; gap: 8px; } }
+@media (max-width: 760px) { .navbar { width: min(100% - 32px, 560px); } .navLinks { display: none; } .hero { padding: 75px 0 70px; } .features, .steps, .pricingGrid { grid-template-columns: 1fr; } .features { width: min(100% - 32px, 560px); padding-bottom: 70px; } .howItWorks, .pricing { width: min(100% - 32px, 560px); padding-bottom: 75px; } .footerMain { flex-direction: column; } }
+@media (max-width: 480px) { .navbar { padding: 20px 0; } .brand { font-size: .95rem; } .heroActions { flex-direction: column; } .startBtn, .secondaryBtn { width: 100%; } .trustRow { gap: 10px 16px; } .footerBottom { flex-direction: column; gap: 8px; } }
 .accountMenu { position: relative; }
 .accountButton { display: flex; align-items: center; gap: 9px; padding: 3px 7px 3px 3px; border: 1px solid #dce2f5; border-radius: 999px; color: #4d4b75; background: #fff; cursor: pointer; }
 .accountInitial { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; color: #fff; background: linear-gradient(135deg, #d52b1e, #b42318); font-weight: 850; }
-.accountChevron { padding-right: 2px; font-size: 1.1rem; }
 .accountDropdown { position: absolute; top: calc(100% + 12px); right: 0; z-index: 5; width: 210px; padding: 8px; border: 1px solid #e1e6f2; border-radius: 14px; background: #fff; box-shadow: 0 18px 45px #33487825; }
 .accountDetails { display: flex; flex-direction: column; gap: 2px; padding: 10px; border-bottom: 1px solid #edf0f6; font-size: .85rem; }
 .accountDetails span { color: #8793a8; font-size: .76rem; }
 .accountDropdown a, .accountDropdown button { display: flex; justify-content: space-between; width: 100%; padding: 11px 10px; border: 0; border-radius: 8px; color: #536079; background: transparent; font: inherit; font-size: .87rem; font-weight: 700; text-align: left; cursor: pointer; }
 .accountDropdown a:hover, .accountDropdown button:hover { color: #b42318; background: #fff1f0; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; scroll-behavior: auto !important; transition: none !important; } }

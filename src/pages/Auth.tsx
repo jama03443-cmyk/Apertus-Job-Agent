@@ -1,24 +1,32 @@
 import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { signInWithGoogle } from '../lib/auth';
 import { supabase } from '../lib/supabase';
 import '../styles/auth.css';
 
 export default function Auth() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
+  const redirect = searchParams.get('redirect');
+  const plan = searchParams.get('plan');
+  const destination = redirect === '/subscription'
+    ? `/subscription${plan ? `?plan=${encodeURIComponent(plan)}` : ''}`
+    : '/';
+
   useEffect(() => {
     let active = true;
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (active && session) navigate('/optimize', { replace: true });
+      if (active && session) navigate(destination, { replace: true });
     });
     return () => { active = false; };
-  }, [navigate]);
+  }, [destination, navigate]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -30,13 +38,13 @@ export default function Auth() {
       : await supabase.auth.signUp({
           email,
           password,
-          options: { emailRedirectTo: `${window.location.origin}/` },
+          options: { emailRedirectTo: `${window.location.origin}${destination}` },
         });
 
     if (result.error) {
       setMessage(result.error.message);
     } else if (isLogin) {
-      navigate('/');
+      navigate(destination);
     } else {
       setMessage('Check your email to verify your account.');
       setIsLogin(true);
@@ -47,10 +55,7 @@ export default function Auth() {
   async function googleLogin() {
     setLoading(true);
     setMessage('');
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: `${window.location.origin}/` },
-    });
+    const { error } = await signInWithGoogle(destination);
     if (error) {
       setMessage(error.message);
       setLoading(false);
@@ -60,7 +65,7 @@ export default function Auth() {
   return (
     <div className="auth">
       <div className="authBox">
-        <p className="authBrand">CV Optimizer AI</p>
+        <p className="authBrand"><img className="authFlag" src="/flag.webp" alt="Swiss flag" /> Apertus Job Agent</p>
         <h1>{isLogin ? 'Login' : 'Create Account'}</h1>
         <p className="authIntro">Use Apertus AI to make your resume clearer and more ATS-friendly.</p>
 
