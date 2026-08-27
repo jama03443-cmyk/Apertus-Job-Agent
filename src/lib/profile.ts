@@ -36,6 +36,13 @@ export function saveOptimization(optimizedText: string, profile: CvProfile | nul
   saveProfile(profile, userId);
 }
 
+/** Removes all CV data for one account when that account signs out. */
+export function clearUserData(userId: string) {
+  removeLegacyData();
+  localStorage.removeItem(accountKey(RESUME_KEY, userId));
+  localStorage.removeItem(accountKey(PROFILE_KEY, userId));
+}
+
 export function readOptimizedResume(userId: string) {
   removeLegacyData();
   return localStorage.getItem(accountKey(RESUME_KEY, userId)) || '';

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { describeProfile, hasProfileContent, readOptimizedResume, readProfile, saveProfile } from '../lib/profile';
@@ -33,8 +33,10 @@ export default function Jobs() {
   const [location, setLocation] = useState('Switzerland');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const requestId = useRef(0);
 
   const loadRecommendations = useCallback(async (userId: string) => {
+    const request = ++requestId.current;
     const resume = readOptimizedResume(userId);
     if (!resume) {
       setMessage('Optimize your CV first. We will then extract your skills and find suitable jobs.');
@@ -49,6 +51,7 @@ export default function Jobs() {
 
     try {
       const response = await findJobs(resume, savedProfile);
+      if (request !== requestId.current) return;
       if (response.error) throw new Error(await getFunctionError(response.error, 'We could not find matching jobs.'));
 
       setJobs(response.data?.jobs || []);
@@ -61,15 +64,49 @@ export default function Jobs() {
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'We could not find matching jobs.');
     } finally {
-      setLoading(false);
+      if (request === requestId.current) setLoading(false);
     }
   }, []);
 
   useEffect(() => {
+    let currentUserId = '';
+
+    function clearResults() {
+      requestId.current += 1;
+      currentUserId = '';
+      setJobs([]);
+      setProfile(null);
+      setLocation('Switzerland');
+      setMessage('');
+      setLoading(false);
+    }
+
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session) navigate('/auth', { replace: true });
-      else void loadRecommendations(session.user.id);
+      if (!session) {
+        clearResults();
+        navigate('/auth', { replace: true });
+        return;
+      }
+
+      currentUserId = session.user.id;
+      void loadRecommendations(session.user.id);
     });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session) {
+        clearResults();
+        return;
+      }
+
+      if (currentUserId && currentUserId !== session.user.id) {
+        clearResults();
+      }
+
+      currentUserId = session.user.id;
+      void loadRecommendations(session.user.id);
+    });
+
+    return () => subscription.unsubscribe();
   }, [loadRecommendations, navigate]);
 
   async function refreshRecommendations() {

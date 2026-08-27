@@ -1,6 +1,7 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import type { ReactNode } from 'react';
 import { supabase } from '../lib/supabase';
+import { clearUserData } from '../lib/profile';
 import '../styles/optimize.css';
 
 type WorkspacePage = 'optimize' | 'jobs' | 'subscription';
@@ -12,6 +13,8 @@ export default function WorkspaceLayout({ activePage, children }: {
   const navigate = useNavigate();
 
   async function signOut() {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) clearUserData(user.id);
     await supabase.auth.signOut();
     navigate('/');
   }
