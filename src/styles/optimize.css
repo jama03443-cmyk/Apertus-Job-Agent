@@ -76,7 +76,17 @@
 @media (max-width: 560px) { .skillCard { padding: 18px; } .skillCardTop, .profileBarTop { align-items: flex-start; flex-direction: column; } .findJobsButton { width: 100%; text-align: center; } }
 @media (max-width: 520px) { .jobCardTop { flex-direction: column; } .jobScore { align-self: start; } }
 @media (max-width: 560px) { .recommendationBar { align-items: flex-start; flex-direction: column; } }
-@media (max-width: 700px) { .dashboardSidebar { width: 210px; } .sidebarBrand { justify-content: flex-start; } .sidebarBrand strong { display: inline; } .sidebarNav a { justify-content: flex-start; padding: 12px 13px; font-size: .89rem; } .sidebarFooter button { padding: 11px 13px; text-align: left; font-size: .87rem; } }
+@media (max-width: 700px) {
+  .dashboardShell { flex-direction: column; }
+  .dashboardSidebar { position: static; width: 100%; min-height: auto; padding: 16px; border-right: 0; border-bottom: 1px solid #e1e7f2; }
+  .sidebarBrand { padding: 0 0 16px; }
+  .sidebarLabel { margin: 0 0 8px; }
+  .sidebarNav { display: flex; overflow-x: auto; gap: 6px; padding-bottom: 2px; }
+  .sidebarNav a { flex: 0 0 auto; justify-content: center; padding: 10px 12px; font-size: .8rem; white-space: nowrap; }
+  .sidebarFooter { display: flex; justify-content: flex-end; margin-top: 10px; padding-top: 0; border-top: 0; }
+  .sidebarFooter button { width: auto; padding: 8px 0; font-size: .8rem; }
+  .dashboardMain { padding: 24px 14px 55px; }
+}
 .subscriptionIntro { margin: 0 0 32px; color: #718097; line-height: 1.6; }
 .currentPlanNote { margin: -18px 0 24px; color: #1c7a44; font-size: .88rem; }
 .dashboardPlans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }

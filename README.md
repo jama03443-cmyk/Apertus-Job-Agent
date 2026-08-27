@@ -126,11 +126,16 @@ tests/
 
 The tests cover the Google OAuth request, the CV upload and optimization request, file-size validation, and the job recommendation request. External services are mocked so the tests do not contact Google, Apertus, Supabase, or Adzuna.
 
-## Deployment
+## Edge Function deployment
 
-The frontend is designed for deployment on Vercel. The included `vercel.json` keeps React Router routes working after a page refresh.
+Deploy the Supabase Edge Functions separately:
 
+```bash
+supabase functions deploy optimize-cv
+supabase functions deploy find-jobs
+```
 
+Keep `APERTUS_API_KEY` and the Adzuna credentials in Supabase Edge Function secrets. They must not be added to frontend environment variables.
 
 ## Project structure
 
