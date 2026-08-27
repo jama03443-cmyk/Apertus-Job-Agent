@@ -130,31 +130,7 @@ The tests cover the Google OAuth request, the CV upload and optimization request
 
 The frontend is designed for deployment on Vercel. The included `vercel.json` keeps React Router routes working after a page refresh.
 
-### Deploy the frontend
 
-1. Push the repository to GitHub.
-2. In Vercel, click **Add New > Project** and import `Apertus-Job-Agent`.
-3. Keep the detected Vite settings:
-   - Build command: `npm run build`
-   - Output directory: `dist`
-4. Add these Environment Variables for **Preview** and **Production**:
-   - `VITE_SUPABASE_URL`
-   - `VITE_SUPABASE_ANON_KEY`
-5. Click **Deploy**.
-
-After deployment, copy the Vercel URL and add it in Supabase under **Authentication > URL Configuration**:
-
-- Site URL: `https://your-app.vercel.app`
-- Redirect URL: `https://your-app.vercel.app/**`
-
-The Supabase Edge Functions are deployed separately:
-
-```bash
-supabase functions deploy optimize-cv
-supabase functions deploy find-jobs
-```
-
-Keep `APERTUS_API_KEY` and the Adzuna credentials in Supabase Edge Function secrets. They must not be added to Vercel frontend variables.
 
 ## Project structure
 
