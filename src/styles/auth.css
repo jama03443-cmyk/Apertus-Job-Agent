@@ -7,6 +7,12 @@
 .authBox form { display: grid; gap: 8px; }
 .authBox label { margin-top: 8px; color: #34425c; font-size: .9rem; font-weight: 700; }
 .authBox input { width: 100%; padding: 13px 14px; border: 1px solid #d7dfed; border-radius: 9px; color: #152033; outline: none; }
+.passwordField { position: relative; }
+.passwordField input { padding-right: 48px; }
+.passwordToggle { position: absolute; top: 50%; right: 8px; display: grid; width: 34px !important; height: 34px; margin: 0 !important; padding: 0 !important; place-items: center; transform: translateY(-50%); color: #647087 !important; background: transparent !important; border-radius: 50% !important; }
+.passwordToggle:hover { color: #d52b1e !important; background: #fff1ef !important; }
+.passwordToggle:focus-visible { outline: 3px solid #d52b1e4d; outline-offset: 1px; }
+.eyeIcon { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
 .authBox input:focus { border-color: #d52b1e; box-shadow: 0 0 0 3px #d52b1e1c; }
 .authBox form button, .googleBtn { width: 100%; margin-top: 14px; padding: 13px 16px; border: 0; border-radius: 9px; font-weight: 800; cursor: pointer; }
 .authBox form button { color: #fff; background: #d52b1e; }

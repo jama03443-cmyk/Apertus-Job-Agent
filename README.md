@@ -4,6 +4,31 @@ A SaaS platform powered by Swiss AI that helps candidates improve their CV and d
 
 Apertus Job Agent combines AI-powered resume optimization, skill extraction, and current job recommendations in one simple workspace.
 
+## API integration architecture
+
+The React frontend does not call Apertus or Adzuna directly with `fetch()` or
+`axios`, and no external API keys are exposed in the browser. Instead, the
+frontend uses the Supabase JavaScript SDK to invoke authenticated Edge
+Functions:
+
+```text
+React frontend
+    | Supabase SDK: functions.invoke()
+    v
+Supabase Edge Function
+    | server-side fetch()
+    v
+Apertus AI or Adzuna Jobs API
+```
+
+- `optimize-cv` calls the Apertus AI API to optimize the CV and extract the
+  candidate profile.
+- `find-jobs` calls the Adzuna API to retrieve Swiss job listings and calculate
+  skill-match scores.
+- Supabase Auth handles email/password authentication and Google OAuth.
+- Apertus and Adzuna credentials are stored as Supabase Edge Function secrets,
+  not frontend environment variables.
+
 ## Features
 
 - Email/password authentication and Google sign-in through Supabase Auth
